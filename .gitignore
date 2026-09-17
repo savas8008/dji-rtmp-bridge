@@ -2,3 +2,9 @@ bin/
 *.zip
 auto.crt
 auto.key
+__pycache__/
+*.pyc
+build/
+dist/
+*.spec
+*.log

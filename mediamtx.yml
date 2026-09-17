@@ -27,7 +27,14 @@ webrtc: no
 srt: no
 moq: no
 
+# app.py'nin "DJI Fly yayını geldi mi?" diye sorabilmesi için (sadece
+# 127.0.0.1'den erişilebilir olması yeterli, dışarı açılmıyor).
+api: yes
+apiAddress: 127.0.0.1:9997
+
 # Kimlik doğrulama yok — izole hotspot ağı dışına açılmamalı.
+# İkinci kural, API'yi (app.py'nin durum sorguları için) yalnızca
+# bilgisayarın kendisinden (127.0.0.1) erişilebilir tutuyor.
 authInternalUsers:
   - user: any
     pass:
@@ -36,6 +43,11 @@ authInternalUsers:
       - action: publish
       - action: read
       - action: playback
+  - user: any
+    pass:
+    ips: ['127.0.0.1', '::1']
+    permissions:
+      - action: api
 
 # DJI Fly'a girilecek adres: rtmp://<hotspot-ip>:1935/dji
 # VLC / QGroundControl adresi:  rtsp://<hotspot-ip>:8554/dji
