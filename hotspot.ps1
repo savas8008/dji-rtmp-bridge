@@ -17,6 +17,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Windows.Forms | Out-Null
+# IAsyncOperation<T>.AsTask() uzanti metodunu (Await-WinRT icin) saglar —
+# WinRT tiplerini "ContentType = WindowsRuntime" ile yuklemek bunu otomatik
+# getirmiyor, ayrica yuklemek gerekiyor.
+Add-Type -AssemblyName System.Runtime.WindowsRuntime | Out-Null
 
 [Windows.Networking.Connectivity.NetworkInformation, Windows.Networking.Connectivity, ContentType = WindowsRuntime] | Out-Null
 [Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager, Windows.Networking.NetworkOperators, ContentType = WindowsRuntime] | Out-Null
