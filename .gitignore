@@ -1,0 +1,4 @@
+bin/
+*.zip
+auto.crt
+auto.key

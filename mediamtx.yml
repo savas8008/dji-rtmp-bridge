@@ -1,0 +1,44 @@
+# MediaMTX yapılandırması — DJI Fly RTMP girişini alır, RTSP (ve HLS) olarak
+# dışarı verir. Sadece izole bir Wi-Fi hotspot ağında çalışacağı için
+# kimlik doğrulama kapalı bırakıldı.
+
+logLevel: info
+
+# --- RTMP girişi: DJI Fly buraya yayın yapacak ---
+rtmp: yes
+rtmpAddress: :1935
+
+# --- RTSP çıkışı: VLC / QGroundControl buradan okuyacak ---
+rtsp: yes
+rtspAddress: :8554
+rtspTransports: [tcp]
+
+# --- Tarayıcıdan hızlı önizleme için HLS (opsiyonel, GCS için gerekli değil) ---
+hls: yes
+hlsAddress: :8888
+hlsAllowOrigins: ['*']
+
+# WebRTC şimdilik kapalı; ileride tarayıcı tabanlı düşük gecikmeli önizleme
+# gerekirse açılabilir.
+webrtc: no
+
+# Bu projede kullanılmıyor; kapalı tutarak gereksiz sertifika üretimini
+# (auto.crt/auto.key) ve ekstra port dinlemeyi önlüyoruz.
+srt: no
+moq: no
+
+# Kimlik doğrulama yok — izole hotspot ağı dışına açılmamalı.
+authInternalUsers:
+  - user: any
+    pass:
+    ips: []
+    permissions:
+      - action: publish
+      - action: read
+      - action: playback
+
+# DJI Fly'a girilecek adres: rtmp://<hotspot-ip>:1935/dji
+# VLC / QGroundControl adresi:  rtsp://<hotspot-ip>:8554/dji
+paths:
+  dji:
+    source: publisher
